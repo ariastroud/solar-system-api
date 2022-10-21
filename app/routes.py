@@ -29,3 +29,4 @@ def handle_planets():
             size=planet.size
             )
         )
+    return jsonify(planets_list)
