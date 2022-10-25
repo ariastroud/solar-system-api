@@ -1,4 +1,3 @@
-from unicodedata import name
 from flask import Blueprint, jsonify, abort, make_response
 
 class Planet:
