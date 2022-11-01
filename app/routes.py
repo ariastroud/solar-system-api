@@ -32,10 +32,33 @@ def create_planet():
 
     return make_response(f"Planet {new_planet.name} successfully created", 201)
 
-
 @planet_bp.route("", methods=["GET"])
 def handle_planets():
     planets = Planet.query.all()
     planets_response = [planet.to_json() for planet in planets]
     return jsonify(planets_response)
 
+# update planet
+@planet_bp.route("/<planet_id>", methods=["PUT"])
+def update_planet(planet_id):
+    planet = validate_planet(planet_id)
+
+    request_body = request.get_json()
+
+    planet.name = request_body["name"]
+    planet.size = request_body["size"]
+    planet.description = request_body["description"]
+
+    db.session.commit()
+
+    return make_response(f"Planet {planet.id} successfully updated"), 200
+
+# delete planet
+@planet_bp.route("/<planet_id>", methods=["DELETE"])
+def delete_planet(planet_id):
+    planet = validate_planet(planet_id)
+
+    db.session.delete(planet)
+    db.session.commit()
+
+    return make_response(f"Planet {planet.id} successfully deleted"), 200
