@@ -25,7 +25,7 @@ def handle_planet(planet_id):
 @planet_bp.route("", methods=["POST"])
 def create_planet():
     request_body = request.get_json()
-    new_planet = Planet(name=request_body["name"], description=request_body["description"], size=request_body["size"])
+    new_planet = Planet.from_dict(request_body)
 
     db.session.add(new_planet)
     db.session.commit()

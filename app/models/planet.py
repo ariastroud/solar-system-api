@@ -6,6 +6,13 @@ class Planet(db.Model):
     description = db.Column(db.String, nullable = False)
     size = db.Column(db.String, nullable = False)
 
+    @classmethod
+    def from_dict(cls, planet_data):
+        return Planet(name=planet_data["name"],
+                    description=planet_data["description"],
+                    size=planet_data["size"]
+        )
+
     def to_json(self):
         return dict(
             id=self.id,
