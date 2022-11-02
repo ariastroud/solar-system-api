@@ -34,7 +34,14 @@ def create_planet():
 
 @planet_bp.route("", methods=["GET"])
 def handle_planets():
-    planets = Planet.query.all()
+    name_query = request.args.get("name")
+
+    planet_query = Planet.query
+
+    if name_query:
+        planet_query = Planet.query.filter_by(name=name_query) 
+
+    planets = planet_query.all()
     planets_response = [planet.to_json() for planet in planets]
     return jsonify(planets_response)
 
