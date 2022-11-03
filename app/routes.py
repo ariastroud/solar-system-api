@@ -20,7 +20,7 @@ def validate_planet(planet_id):
 def handle_planet(planet_id):
     planet = validate_planet(planet_id)
 
-    return jsonify(planet.to_json()), 200
+    return jsonify(planet.to_dict()), 200
 
 @planet_bp.route("", methods=["POST"])
 def create_planet():
@@ -42,7 +42,7 @@ def handle_planets():
         planet_query = Planet.query.filter_by(name=name_query) 
 
     planets = planet_query.all()
-    planets_response = [planet.to_json() for planet in planets]
+    planets_response = [planet.to_dict() for planet in planets]
     return jsonify(planets_response)
 
 # update planet

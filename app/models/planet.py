@@ -13,10 +13,10 @@ class Planet(db.Model):
                     size=planet_data["size"]
         )
 
-    def to_json(self):
+    def to_dict(self):
         return dict(
             id=self.id,
             name=self.name,
             description=self.description,
             size=self.size
-            )
+        )
