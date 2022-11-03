@@ -21,6 +21,14 @@ def test_get_one_planet_returns_planet(client, one_saved_planet):
     assert response_body["description"] == one_saved_planet.description
     assert response_body["size"] == one_saved_planet.size
 
+# test 2
+def test_get_planet_with_no_data_returns_404(client):
+    # act
+    response = client.get("planets/1")
+
+    # assert
+    assert response.status_code == 404
+
 # test 3
 def test_get_all_planets_with_two_records(client, two_saved_planets):
     # act
@@ -42,3 +50,24 @@ def test_get_all_planets_with_two_records(client, two_saved_planets):
         "description": "The ringed planet.",
         "size": "large"
     }
+
+# test 4
+def test_create_planet_with_valid_data(client):
+    # arrange
+    EXPECTED_PLANET = {
+        "name": "pluto",
+        "description": "The last planet.",
+        "size": "tiny"
+    }
+
+    # act
+    response = client.post("/planets", json=EXPECTED_PLANET)
+    response_body = response.get_data(as_text=True)
+    actual_planet = Planet.query.get(1)
+
+    # assert
+    assert response.status_code == 201
+    assert response_body == f"Planet {EXPECTED_PLANET['name']} successfully created"
+    assert actual_planet.name == EXPECTED_PLANET["name"]
+    assert actual_planet.description == EXPECTED_PLANET["description"]
+    assert actual_planet.size == EXPECTED_PLANET["size"]
