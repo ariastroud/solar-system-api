@@ -34,3 +34,18 @@ def one_saved_planet(app):
     db.session.add(planet)
     db.session.commit()
     return planet
+
+@pytest.fixture
+def two_saved_planets(app):
+    jupiter_planet = Planet(
+        name="Jupiter", 
+        description="The fifth planet form the sun.",
+        size="large"
+        )
+    saturn_planet = Planet(
+        name="Saturn", 
+        description="The ringed planet.",
+        size="large"
+        )
+    db.session.add_all([jupiter_planet, saturn_planet])
+    db.session.commit()
