@@ -35,11 +35,15 @@ def create_planet():
 @planet_bp.route("", methods=["GET"])
 def handle_planets():
     name_query = request.args.get("name")
+    size_query = request.args.get("size")
 
     planet_query = Planet.query
 
     if name_query:
-        planet_query = Planet.query.filter_by(name=name_query) 
+        planet_query = planet_query.filter_by(name=name_query) 
+
+    if size_query:
+        planet_query = planet_query.filter_by(size=size_query)
 
     planets = planet_query.all()
     planets_response = [planet.to_dict() for planet in planets]
