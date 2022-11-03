@@ -23,3 +23,14 @@ def app():
 @pytest.fixture
 def client(app):
     return app.test_client()
+
+@pytest.fixture
+def one_saved_planet(app):
+    planet = Planet(
+        name="Mars", 
+        description="The fourth planet form the sun.",
+        size="small"
+        )
+    db.session.add(planet)
+    db.session.commit()
+    return planet
