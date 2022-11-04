@@ -1,8 +1,8 @@
-"""adds Planet model
+"""empty message
 
-Revision ID: da8376ede7f6
+Revision ID: a7a10c25094e
 Revises: 
-Create Date: 2022-10-28 10:54:17.989202
+Create Date: 2022-11-04 11:08:51.828773
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'da8376ede7f6'
+revision = 'a7a10c25094e'
 down_revision = None
 branch_labels = None
 depends_on = None
