@@ -85,3 +85,11 @@ def create_moon(planet_id):
     db.session.commit()
 
     return make_response(f"Moon {new_moon.name} is a moon of {planet.name}", 201)
+
+# return all moons a planet has
+@planet_bp.route("/<planet_id>/moons", methods=["GET"])
+def read_planet_moons(planet_id):
+    planet = validate_model(Planet, planet_id)
+    moons = [moon.to_dict() for moon in planet.moons]
+
+    return jsonify(moons)
